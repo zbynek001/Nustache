@@ -113,9 +113,9 @@ namespace Nustache.Core
                 {
                     data = ValueGetter.GetValue(data, name);
 
-                    if (data == null || ReferenceEquals(data, ValueGetter.NoValue))
-                    {
-                        partialMatch = true;
+                    if (data == null || ReferenceEquals(data, ValueGetter.NoValue)) {
+                        if (data == null)
+                            partialMatch = true;
                         break;
                     }
                 }

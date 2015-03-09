@@ -7,10 +7,10 @@ using Nustache.Core;
 
 namespace Nustache.Compilation
 {
-    internal class CompiledValueGetterVisitor : ValueGetterVisitor
+    public class CompiledValueGetterVisitor : ValueGetterVisitor
     {
-        private Type _targetType;
-        private Expression _dataParameter;
+        protected readonly Type _targetType;
+        protected readonly Expression _dataParameter;
 
         public CompiledValueGetterVisitor(Type targetType, Expression dataParameter)
         {
@@ -18,7 +18,7 @@ namespace Nustache.Compilation
             this._dataParameter = dataParameter;
         }
 
-        public Expression CompiledGetter { get; private set; }
+        public Expression CompiledGetter { get; protected set; }
 
         public void Visit(MethodInfoValueGetter getter)
         {

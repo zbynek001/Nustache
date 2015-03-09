@@ -149,12 +149,18 @@ namespace Nustache.Compilation
             return value;
         }
 
-        public static Expression CompiledGetter(Type targetType, string path, Expression dataParameter)
+        public virtual CompiledValueGetterVisitor GetValueGetterVisitor(Type targetType, Expression dataParameter)
+        {
+            return new CompiledValueGetterVisitor(targetType, dataParameter);
+        }
+
+        public Expression CompiledGetter(Type targetType, string path, Expression dataParameter)
         {
             var getter = ValueGetterFactories.Factories.GetCompiledGetter(targetType, path);
-            var visitor = new CompiledValueGetterVisitor(targetType, dataParameter);
+            //var visitor = new CompiledValueGetterVisitor(targetType, dataParameter);
             if (getter != null)
             {
+                var visitor = GetValueGetterVisitor(targetType, dataParameter);
                 getter.Accept(visitor);
                 return visitor.CompiledGetter;
             }

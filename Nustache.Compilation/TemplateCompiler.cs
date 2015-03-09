@@ -54,5 +54,22 @@ namespace Nustache.Compilation
 
             return (Expression.Lambda<Func<object, string>>(expression, param)).Compile();
         }
+
+
+        public static Func<object, string> Compile<T>(this Template template, Type compileFor, TemplateLocator templateLocator)
+            where T : CompileContext
+        {
+            var param = Expression.Parameter(typeof(object), "data");
+
+            CompileContext context = (T)Activator.CreateInstance(typeof(T), template, compileFor, Expression.Convert(param, compileFor), templateLocator);
+            //if (compileContextFactory != null)
+            //    context = compileContextFactory(template, compileFor, Expression.Convert(param, compileFor), templateLocator);
+            //else
+            //    context = new CompileContext(template, compileFor, Expression.Convert(param, compileFor), templateLocator);
+
+            var expression = Compile(template, context);
+
+            return (Expression.Lambda<Func<object, string>>(expression, param)).Compile();
+        }
     }
 }
