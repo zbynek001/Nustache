@@ -35,6 +35,7 @@
   <ItemGroup>
     <Compile Include="CompilationException.cs" />
     <Compile Include="CompileContext.cs" />
+    <Compile Include="CompiledHelpers.cs" />
     <Compile Include="CompiledValueGetterVisitor.cs" />
     <Compile Include="CompilePartVisitor.cs" />
     <Compile Include="CompoundExpression.cs" />

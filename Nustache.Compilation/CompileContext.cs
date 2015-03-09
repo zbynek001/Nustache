@@ -114,6 +114,17 @@ namespace Nustache.Compilation
                 }
             }
 
+            string name;
+            IList<Expression> arguments;
+            IDictionary<string, Expression> options;
+
+            CompiledHelpers.Parse(this, path, out name, out arguments, out options);
+
+            if (CompiledHelpers.Contains(name)) {
+                var helper = CompiledHelpers.Get(name);
+                return helper(this, arguments, options);
+            }
+
             throw new CompilationException("Could not find " + path, 
                 String.Join(", ", _targetObjectStack.Select(obj => obj.Type.Name)), 0, 0);
         }

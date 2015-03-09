@@ -112,7 +112,8 @@ namespace Nustache.Compilation
         {
             var getter = context.CompiledGetter(variable.Path);
             getter = CompoundExpression.NullCheck(getter, "");
-            getter = Expression.Call(getter, context.TargetType.GetMethod("ToString"));
+            //getter = Expression.Call(getter, context.TargetType.GetMethod("ToString"));
+            getter = Expression.Call(getter, getter.Type.GetMethod("ToString", Type.EmptyTypes));
 
             if (variable.Escaped)
             {
